@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using XInputDotNetPure;
 
 public class GamepadInput {
     public enum Button
@@ -51,7 +50,7 @@ public class GamepadInput {
         {
             if (m_padIndex != null)
             {
-                GamePadState testState = GamePad.GetState((PlayerIndex)m_padIndex);
+                GamePadState testState = GamePad.GetState(m_padIndex ?? 0);
                 if (testState.IsConnected)
                 {
                     m_currentGamepadStateMaybe = testState;
@@ -62,7 +61,7 @@ public class GamepadInput {
             {
                 for (int i = 0; i < 1; ++i)
                 {
-                    GamePadState testState = GamePad.GetState((PlayerIndex)i);
+                    GamePadState testState = GamePad.GetState(i);
                     if (testState.IsConnected)
                     {
                         m_currentGamepadStateMaybe = testState;
