@@ -386,7 +386,7 @@ public static class ChartReader
 
         // Check if it's already the full path. If not, make it relative to the chart file.
         if (!File.Exists(audioFilepath))
-            audioFilepath = audioDirectory + "\\" + audioFilepath;
+            audioFilepath = Path.Combine(audioDirectory, audioFilepath);
 
         if (File.Exists(audioFilepath) && Utility.validateExtension(audioFilepath, Globals.validAudioExtensions))
             song.SetAudioLocation(streamAudio, Path.GetFullPath(audioFilepath));
