@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿#if UNITY_STANDALONE_WIN
+using System.Runtime.InteropServices;
 using System;
 
 public class WindowHandleManager {
@@ -70,3 +71,4 @@ public class WindowHandleManager {
 #endif
     }
 }
+#endif

@@ -106,7 +106,7 @@ public class Globals : MonoBehaviour {
 
     void LoadGameSettings()
     {
-        GameSettings.Load(workingDirectory + "\\config.ini");
+        GameSettings.Load(Path.Combine(workingDirectory, "config.ini"));
 
         // Check for valid fps values
         int fps = GameSettings.targetFramerate;
@@ -173,7 +173,8 @@ public class Globals : MonoBehaviour {
 
         if (System.IO.File.Exists(autosaveLocation))
         {
-#if !UNITY_EDITOR
+            // TODO: fix for cross-platform
+            /*
             string autosaveText = "An autosave was detected indicating that the program did not correctly shut down during the last session. \nWould you like to reload the autosave?";
             string autosaveCaption = "Warning";
 
@@ -184,7 +185,7 @@ public class Globals : MonoBehaviour {
                 yield return StartCoroutine(editor._Load(autosaveLocation, false));
                 ChartEditor.isDirty = true;
             }
-#endif
+            */
         }
     }
     
@@ -305,7 +306,7 @@ public class Globals : MonoBehaviour {
     public void Quit()
     {
         GameSettings.targetFramerate = Application.targetFrameRate;
-        GameSettings.Save(workingDirectory + "\\config.ini");
+        GameSettings.Save(Path.Combine(workingDirectory, "config.ini"));
 
         // Delete autosaved chart. If chart is not deleted then that means there may have been a problem like a crash and the autosave should be reloaded the next time the program is opened. 
         if (File.Exists(autosaveLocation))

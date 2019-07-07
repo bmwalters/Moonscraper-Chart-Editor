@@ -79,7 +79,7 @@ public class ChartEditor : UnitySingleton<ChartEditor> {
     public SongObjectPoolManager songObjectPoolManager { get { return _songObjectPoolManager; } }
 
     string lastLoadedFile = string.Empty;
-    public WindowHandleManager windowHandleManager { get; private set; }
+    //public WindowHandleManager windowHandleManager { get; private set; }
     [HideInInspector]
     public ErrorManager errorManager { get; private set; }
     public static bool hasFocus { get { return Application.isFocused; } }
@@ -204,7 +204,7 @@ public class ChartEditor : UnitySingleton<ChartEditor> {
         inputManager = gameObject.AddComponent<InputManager>();
         gameObject.AddComponent<UITabbing>();
 
-        windowHandleManager = new WindowHandleManager(versionNumber.text, GetComponent<Settings>().productName);
+        //windowHandleManager = new WindowHandleManager(versionNumber.text, GetComponent<Settings>().productName);
         errorManager = gameObject.AddComponent<ErrorManager>();
     }
 
@@ -239,7 +239,8 @@ public class ChartEditor : UnitySingleton<ChartEditor> {
         _maxPos = currentSong.WorldYPositionToTick(camYMax.position.y);
 
         // Set window text to represent if the current song has been saved or not
-        windowHandleManager.UpdateDirtyNotification(isDirty);
+        // TODO: fix for cross-platform
+        //windowHandleManager.UpdateDirtyNotification(isDirty);
 
         if (Globals.applicationMode != Globals.ApplicationMode.Loading && (autosave == null || autosave.ThreadState != System.Threading.ThreadState.Running))
         {
@@ -278,7 +279,8 @@ public class ChartEditor : UnitySingleton<ChartEditor> {
 
     void OnApplicationFocus(bool hasFocus)
     {
-        windowHandleManager.OnApplicationFocus(hasFocus);
+        // TODO: fix for cross-platform
+        //windowHandleManager.OnApplicationFocus(hasFocus);
     }
 
     void OnApplicationQuit()
@@ -314,6 +316,8 @@ public class ChartEditor : UnitySingleton<ChartEditor> {
 
     bool EditCheck()
     {    
+        // TODO: fix for cross-platform
+        /*
         // Check for unsaved changes
         if (isDirty)
         {
@@ -331,6 +335,7 @@ public class ChartEditor : UnitySingleton<ChartEditor> {
                 return false;
             }
         }
+        */
 
         return true;
     }

@@ -316,6 +316,8 @@ public class Export : DisplayMenu {
 
     public static void ExportWAV(string srcPath, string destPath, ExportOptions exportOptions)
     {
+        // TODO: fix for cross-platform
+        /*
         Debug.Log("Exporting " + srcPath + " to " + destPath);
         int stream = Bass.BASS_StreamCreateFile(srcPath, 0, 0, BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_SAMPLE_FLOAT);
 
@@ -336,6 +338,7 @@ public class Export : DisplayMenu {
 
         ww.Close();
         Bass.BASS_StreamFree(stream);
+        */
         /*
         const int WAV_HEADER_LENGTH = 44;
 

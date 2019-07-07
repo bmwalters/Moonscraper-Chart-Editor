@@ -79,7 +79,8 @@ public static class MidReader {
             {
                 bool importTrackAsVocalsEvents = trackNameKey == MidIOHelper.VOCALS_TRACK;
 
-#if !UNITY_EDITOR
+                // TODO: fix for cross-platform
+                /*
                 if (importTrackAsVocalsEvents)
                 {
                     callBackState = CallbackState.WaitingForExternalInformation;
@@ -87,7 +88,8 @@ public static class MidReader {
                     callBackState = CallbackState.None;
                     importTrackAsVocalsEvents = result == NativeMessageBox.Result.Yes;
                 }
-#endif
+                */
+
                 if (importTrackAsVocalsEvents)
                 {
                     Debug.Log("Loading lyrics from Vocals track");
