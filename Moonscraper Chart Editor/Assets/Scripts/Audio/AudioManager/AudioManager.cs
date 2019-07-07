@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
-#if BASS_AUDIO
 using Un4seen.Bass;
 using Un4seen.Bass.Misc;
-#endif
 
 public static class AudioManager {
     public static bool isDisposed { get; private set; }
@@ -28,9 +25,9 @@ public static class AudioManager {
 #elif UNITY_STANDALONE_WIN
         "/Moonscraper Chart Editor_Data/StreamingAssets/";
 #else
-        // Not supported/todo
+        "/"; // TODO: fix for cross-platform
 #endif
-        UnityEngine.Debug.Assert(System.IO.File.Exists(encoderDirectory + "oggenc2.exe"));
+        // UnityEngine.Debug.Assert(System.IO.File.Exists(encoderDirectory + "oggenc2.exe"));
 
         return success;
     }
@@ -103,6 +100,8 @@ public static class AudioManager {
         }
         else
         {
+            // TODO: fix for cross-platform
+            /*
             string inputFile = sourcePath;
             string outputFile = destPath;
 
@@ -113,6 +112,7 @@ public static class AudioManager {
             {
                 UnityEngine.Debug.LogErrorFormat("Unable to encode ogg file from {0} to {1}. Error {2}", sourcePath, destPath, Bass.BASS_ErrorGetCode().ToString());
             }
+            */
         }
     }
 

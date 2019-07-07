@@ -1,6 +1,4 @@
-﻿#if BASS_AUDIO
-using Un4seen.Bass;
-#endif
+﻿using Un4seen.Bass;
 
 public class OneShotSampleStream : AudioStream {
     float _volume;
