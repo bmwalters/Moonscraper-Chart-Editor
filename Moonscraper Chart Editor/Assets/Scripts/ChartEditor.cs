@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System;
+using SFB;
 
 public class ChartEditor : UnitySingleton<ChartEditor> {
     protected override bool WantDontDestroyOnLoad { get { return false; } }
@@ -423,8 +424,8 @@ public class ChartEditor : UnitySingleton<ChartEditor> {
         if (!forced)
             defaultFileName += "(UNFORCED)";
 
-        string fileName;
-        if (FileExplorer.SaveFilePanel(new ExtensionFilter("Chart files", "chart"), defaultFileName, "chart", out fileName))
+        string fileName = StandaloneFileBrowser.SaveFilePanel("Save as...", "", defaultFileName, new ExtensionFilter[] { new ExtensionFilter("Chart files", "chart") });
+        if (fileName != "")
         {
             ExportOptions exportOptions = currentSong.defaultExportOptions;
             exportOptions.forced = forced;
@@ -566,14 +567,18 @@ public class ChartEditor : UnitySingleton<ChartEditor> {
 
         Song backup = currentSong;
 
-        if (!FileExplorer.OpenFilePanel(new ExtensionFilter("Chart files", "chart", "mid"), "chart,mid", out currentFileName))
+        string[] paths = StandaloneFileBrowser.OpenFilePanel("Open file", "", new ExtensionFilter[] { new ExtensionFilter("Chart files", "chart", "mid") }, false);
+        if (paths.Length != 0)
+        {
+            currentFileName = paths[0];
+        }
+        else
         {
             currentSong = backup;
 
             // Immediate exit
             yield break;
         }
-
         Debug.Log("Loading song: " + System.IO.Path.GetFullPath(currentFileName));
 
         yield return StartCoroutine(_Load(currentFileName));

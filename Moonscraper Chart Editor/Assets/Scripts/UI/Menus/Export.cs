@@ -10,6 +10,7 @@ using System.IO;
 using UnityEngine.UI;
 using Un4seen.Bass.Misc;
 using Un4seen.Bass;
+using SFB;
 
 public class Export : DisplayMenu {
     public Text exportingInfo;
@@ -103,29 +104,28 @@ public class Export : DisplayMenu {
         if (!exportOptions.forced)
             defaultFileName += "(UNFORCED)";
 
-        bool aquiredFilePath = false;
-
         // Open up file explorer and get save location
         if (exportOptions.format == ExportOptions.Format.Chart)
         {
-            aquiredFilePath = FileExplorer.SaveFilePanel(new ExtensionFilter("Chart files", "chart"), defaultFileName, "chart", out saveLocation);
+            saveLocation = StandaloneFileBrowser.SaveFilePanel("Save as...", "", defaultFileName, new ExtensionFilter[] { new ExtensionFilter("Chart files", "chart") });
         }
         else if (exportOptions.format == ExportOptions.Format.Midi)
         {
-            aquiredFilePath = FileExplorer.SaveFilePanel(new ExtensionFilter("Midi files", "mid"), defaultFileName, "mid", out saveLocation);
+            saveLocation = StandaloneFileBrowser.SaveFilePanel("Save as...", "", defaultFileName, new ExtensionFilter[] { new ExtensionFilter("Midi files", "mid") });
         }
         else
             throw new Exception("Invalid file extension");
 
-        if (aquiredFilePath)
+        if (saveLocation != "")
             StartCoroutine(_ExportSong(saveLocation));
     }
 
     public void ExportCHPackage()
     {
-        string saveDirectory;
-        if (FileExplorer.OpenFolderPanel(out saveDirectory))
+        string[] directories = StandaloneFileBrowser.OpenFolderPanel("Open folder", "", false);
+        if (directories.Length != 0)
         {
+            string saveDirectory = directories[0];
             Song song = editor.currentSong;
 
             saveDirectory = saveDirectory.Replace('\\', '/');

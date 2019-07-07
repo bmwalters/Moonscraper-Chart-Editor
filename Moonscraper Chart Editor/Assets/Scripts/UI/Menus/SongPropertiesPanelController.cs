@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System;
+using SFB;
 
 public class SongPropertiesPanelController : DisplayMenu {
     public Scrollbar verticalScroll;
@@ -208,9 +209,8 @@ public class SongPropertiesPanelController : DisplayMenu {
 
     string GetAudioFile()
     {
-        string audioFilepath = string.Empty;
-        FileExplorer.OpenFilePanel(audioExFilter, "mp3,ogg,wav", out audioFilepath);
-        return audioFilepath;
+        string[] paths = StandaloneFileBrowser.OpenFilePanel("Open file", "", new ExtensionFilter[] { new ExtensionFilter("Audio Files", "mp3", "ogg", "wav") }, false);
+        return (paths.Length == 0) ? string.Empty : paths[0];
     }
 
     public void LoadMusicStream()
